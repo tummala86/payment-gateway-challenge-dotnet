@@ -13,7 +13,7 @@ namespace PaymentsGateway.Test.Integration.GetPayment
     {
 
         [Fact]
-        public async Task GetPayment_ShouldReturnNotFound_WhenPaymentIdValid()
+        public async Task GetPayment_ShouldReturnSuccess_WhenPaymentIdValid()
         {
             // Arrange
             var idempotencyKey = Guid.NewGuid().ToString();
@@ -22,17 +22,12 @@ namespace PaymentsGateway.Test.Integration.GetPayment
 
             var paymentRequest = new
             {
-                merchant_id = merchantId,
-                referrence = "test",
-                amount = 20,
+                card_number = "2222405343248877",
+                expiry_month = 4,
+                expiry_year = 2025,
                 currency = "gbp",
-                card = new
-                {
-                    number = "1111111111111111",
-                    expiry_month = 10,
-                    expiry_year = 2028,
-                    cvv = "123"
-                }
+                amount = 100,
+                cvv = "123"
             };
 
 
@@ -41,7 +36,7 @@ namespace PaymentsGateway.Test.Integration.GetPayment
             var paymentResult = JsonConvert.DeserializeObject<PostPaymentResponse>(body);
 
             // Act
-            var response = await client.GetAsync($"/v1/payments/{paymentResult?.Id}");
+            var response = await client.GetAsync($"/payments/{paymentResult?.Id}");
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);

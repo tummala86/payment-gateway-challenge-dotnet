@@ -10,7 +10,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
     public class SuccessTests : TestServerFixture
     {
         [Fact]
-        public async Task Should_Return_Payment_Accepted()
+        public async Task CreatePayment_ShouldReturn_PaymentAuthorized()
         {
             // Arrange
             var idempotencyKey = Guid.NewGuid().ToString();
@@ -18,11 +18,11 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
 
             var paymentRequest = new
             {
-                card_number = "1111111111111111",
-                expiry_month = 10,
-                expiry_year = 2028,
+                card_number = "2222405343248877",
+                expiry_month = 4,
+                expiry_year = 2025,
                 currency = "gbp",
-                amount = 20,
+                amount = 100,
                 cvv = "123"
             };
 

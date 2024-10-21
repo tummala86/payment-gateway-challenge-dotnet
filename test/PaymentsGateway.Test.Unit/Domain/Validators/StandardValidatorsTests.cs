@@ -70,5 +70,13 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         {
             StandardValidators.ValidateYear(fieldName, year).IsSuccess.Should().Be(isValid);
         }
+
+        [Theory]
+        [InlineData("Amount", 10, true)]
+        [InlineData("Amount", 0, false)]
+        public void Should_Validate_Amount_Field(string fieldName, int value, bool isValid)
+        {
+            StandardValidators.ValidateAmount(fieldName, value).IsSuccess.Should().Be(isValid);
+        }
     }
 }

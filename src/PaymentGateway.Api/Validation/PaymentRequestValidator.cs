@@ -22,6 +22,7 @@ namespace PaymentsGateway.Api.Validation
                 .ContinueIfSuccess(() => StandardValidators.ValidateMonth(nameof(request.ExpiryMonth), request.ExpiryMonth, request.ExpiryYear))
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.ExpiryYear), request.ExpiryYear))
                 .ContinueIfSuccess(() => StandardValidators.ValidateYear(nameof(request.ExpiryYear), request.ExpiryYear))
+                .ContinueIfSuccess(() => StandardValidators.ValidateAmount(nameof(request.Amount), request.Amount))
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.Cvv), request.Cvv))
                 .ContinueIfSuccess(() => StandardValidators.ValidateCvv(nameof(request.Cvv), request.Cvv)));
         }

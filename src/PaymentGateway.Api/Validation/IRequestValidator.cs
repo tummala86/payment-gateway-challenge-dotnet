@@ -1,7 +1,9 @@
-﻿namespace PaymentsGateway.Api.Validation
+﻿using PaymentsGateway.Domain.Validators;
+
+namespace PaymentsGateway.Api.Validation
 {
     public interface IRequestValidator<in T>
     {
-        Domain.Validators.ValidationResult Validate(T request);
+        ValidationResult Validate(T request);
     }
 }

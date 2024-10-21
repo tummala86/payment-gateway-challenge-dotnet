@@ -34,7 +34,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
             // Arrange
             var client = Server.CreateClient();
 
-            var paymentRequest = PaymentRequest(20);
+            var paymentRequest = PaymentRequest(100);
 
             // Act
             var response = await client.PostAsJsonAsync("/Payments", paymentRequest);
@@ -52,8 +52,8 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
             var idempotencyKey = Guid.NewGuid().ToString();
             var client = Server.CreateClient().AddIdempotencyKeyHeader(idempotencyKey);
 
-            var paymentRequest1 = PaymentRequest(10);
-            var paymentRequest2 = PaymentRequest(20);
+            var paymentRequest1 = PaymentRequest(100);
+            var paymentRequest2 = PaymentRequest(200);
 
             // Act
             var response1 = await client.PostAsJsonAsync("/payments", paymentRequest1);
@@ -66,13 +66,13 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
             body.Should().NotBeNull();
         }
 
-        private object PaymentRequest(decimal amount)
+        private object PaymentRequest(int amount)
         {
             return new
             {
-                card_number = "1111111111111111",
-                expiry_month = 10,
-                expiry_year = 2028,
+                card_number = "2222405343248877",
+                expiry_month = 4,
+                expiry_year = 2025,
                 currency = "gbp",
                 amount = amount,
                 cvv = "123"

@@ -24,6 +24,11 @@ namespace PaymentsGateway.Domain.Validators
             ? StandardParameterErrors.InvalidCurrencyValue(fieldName)
             : new ValidationResult.Success();
 
+        public static ValidationResult ValidateAmount(string fieldName, int value)
+            => value <= 0
+            ? StandardParameterErrors.InvalidAmoutValue(fieldName)
+            : new ValidationResult.Success();
+
         public static ValidationResult ValidateCardNumber(string fieldName, string value)
         {
             Regex regex = new("^[0-9]{14,19}$");
