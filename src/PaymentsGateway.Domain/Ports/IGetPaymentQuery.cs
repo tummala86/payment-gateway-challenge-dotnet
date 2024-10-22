@@ -1,9 +1,8 @@
 ﻿using PaymentsGateway.Domain.Models;
 
-namespace PaymentsGateway.Domain.Ports
+namespace PaymentsGateway.Domain.Ports;
+
+public interface IGetPaymentQuery
 {
-    public interface IGetPaymentQuery
-    {
-        Task<GetPaymentResponse> GetPayment(GetPaymentRequest request);
-    }
+    Task<GetPaymentResponse> GetPayment(GetPaymentRequest request);
 }

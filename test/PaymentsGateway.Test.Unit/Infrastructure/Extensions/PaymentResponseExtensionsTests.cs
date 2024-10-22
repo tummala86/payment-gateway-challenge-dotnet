@@ -9,17 +9,20 @@ namespace PaymentsGateway.Test.Unit.Infrastructure.Extensions
     public class PaymentResponseExtensionsTests
     {
         [Fact]
-        public void ToPaymentDetails_Should_Return_PaymentDetails()
+        public void PaymentEntity_ShouldMapToDomainPaymentDetails()
         {
             // Arrange
+            var paymentId = Guid.NewGuid();
+            var bankAuthCode = Guid.NewGuid().ToString();
+
             var payment = new Payment()
             {
-                Id = Guid.NewGuid(),
+                Id = paymentId,
                 CardNumber = "1234567898765432",
                 Cvv = "123",
                 Amount = 100,
                 Status = PaymentStatus.Authorized,
-                BankAuthorizationCode = Guid.NewGuid().ToString(),
+                BankAuthorizationCode = bankAuthCode,
                 CreatedAt = DateTime.UtcNow,
                 ExpiryMonth = 10,
                 ExpiryYear = 2028

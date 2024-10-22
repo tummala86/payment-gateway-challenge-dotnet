@@ -4,38 +4,37 @@ using PaymentsGateway.Domain.Ports;
 using PaymentsGateway.Infrastructure.Extensions;
 using PaymentsGateway.Infrastructure.Repositories;
 
-namespace PaymentsGateway.Infrastructure
+namespace PaymentsGateway.Infrastructure;
+
+public class GetPaymentQuery : IGetPaymentQuery
 {
-    public class GetPaymentQuery : IGetPaymentQuery
+    private readonly IPaymentRepository _paymentRepository;
+    private readonly ILogger<GetPaymentQuery> _logger;
+
+    public GetPaymentQuery(IPaymentRepository paymentRepository,
+        ILogger<GetPaymentQuery> logger)
     {
-        private readonly IPaymentRepository _paymentRepository;
-        private readonly ILogger<GetPaymentQuery> _logger;
+        _paymentRepository = paymentRepository;
+        _logger = logger;
+    }
 
-        public GetPaymentQuery(IPaymentRepository paymentRepository,
-            ILogger<GetPaymentQuery> logger)
+    public async Task<GetPaymentResponse> GetPayment(GetPaymentRequest request)
+    {
+        try
         {
-            _paymentRepository = paymentRepository;
-            _logger = logger;
+            var result = await _paymentRepository.GetAsync(request.Id);
+
+            if (result != null)
+            {
+                return new GetPaymentResponse.Success(result.ToDomainPaymentDetails());
+            }
+
+            return new GetPaymentResponse.NotFound();
         }
-
-        public async Task<GetPaymentResponse> GetPayment(GetPaymentRequest request)
+        catch (Exception ex)
         {
-            try
-            {
-                var result = await _paymentRepository.GetAsync(request.Id);
-
-                if (result != null)
-                {
-                    return new GetPaymentResponse.Success(result.ToDomainPaymentDetails());
-                }
-
-                return new GetPaymentResponse.NotFound();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is an error while fetching payment details");
-                return new GetPaymentResponse.InternalError();
-            }
+            _logger.LogError(ex, "There is an error while fetching payment details");
+            return new GetPaymentResponse.InternalError();
         }
     }
 }

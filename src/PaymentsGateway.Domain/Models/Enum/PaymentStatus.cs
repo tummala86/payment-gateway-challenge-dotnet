@@ -1,10 +1,8 @@
-﻿namespace PaymentsGateway.Domain.Models.Enum
+﻿namespace PaymentsGateway.Domain.Models.Enum;
+
+public enum PaymentStatus
 {
-    public enum PaymentStatus
-    {
-        Initiated,
-        Authorized,
-        Declined,
-        Failed
-    }
+    Initiated,
+    Authorized,
+    Declined
 }

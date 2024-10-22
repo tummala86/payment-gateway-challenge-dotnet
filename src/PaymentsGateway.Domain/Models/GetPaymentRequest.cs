@@ -1,4 +1,3 @@
-﻿namespace PaymentsGateway.Domain.Models
-{
-    public record GetPaymentRequest(Guid Id);
-}
+﻿namespace PaymentsGateway.Domain.Models;
+
+public record GetPaymentRequest(Guid Id);

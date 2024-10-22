@@ -1,7 +1,6 @@
-﻿namespace PaymentsGateway.Domain.Handlers
+﻿namespace PaymentsGateway.Domain.Handlers;
+
+public interface IRequestHandler<in TRequest, TResult>
 {
-    public interface IRequestHandler<in TRequest, TResult>
-    {
-        Task<TResult> HandleAsync(TRequest request);
-    }
+    Task<TResult> HandleAsync(TRequest request);
 }

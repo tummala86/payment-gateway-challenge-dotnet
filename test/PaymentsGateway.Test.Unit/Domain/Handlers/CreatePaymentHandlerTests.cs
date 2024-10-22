@@ -62,7 +62,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
 
         private CreatePaymentRequest CreatePaymentRequest()
         {
-            return new CreatePaymentRequest(10, Currency.GBP, "1111111111111111", 10, 2023, "123");
+            return new CreatePaymentRequest("1111111111111111", 10, 2023, 10, Currency.GBP, "123");
         }
     }
 }

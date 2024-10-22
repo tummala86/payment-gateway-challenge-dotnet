@@ -1,20 +1,19 @@
 ﻿using PaymentsGateway.Domain.Models;
 using PaymentsGateway.Domain.Ports;
 
-namespace PaymentsGateway.Domain.Handlers
+namespace PaymentsGateway.Domain.Handlers;
+
+public class GetPaymentHandler : IRequestHandler<GetPaymentRequest, GetPaymentResponse>
 {
-    public class GetPaymentHandler : IRequestHandler<GetPaymentRequest, GetPaymentResponse>
+    private readonly IGetPaymentQuery _getPaymentQuery;
+
+    public GetPaymentHandler(IGetPaymentQuery getPaymentQuery)
     {
-        private readonly IGetPaymentQuery _getPaymentQuery;
+        _getPaymentQuery = getPaymentQuery;
+    }
 
-        public GetPaymentHandler(IGetPaymentQuery getPaymentQuery)
-        {
-            _getPaymentQuery = getPaymentQuery;
-        }
-
-        public async Task<GetPaymentResponse> HandleAsync(GetPaymentRequest request)
-        {
-            return await _getPaymentQuery.GetPayment(request);
-        }
+    public async Task<GetPaymentResponse> HandleAsync(GetPaymentRequest request)
+    {
+        return await _getPaymentQuery.GetPayment(request);
     }
 }

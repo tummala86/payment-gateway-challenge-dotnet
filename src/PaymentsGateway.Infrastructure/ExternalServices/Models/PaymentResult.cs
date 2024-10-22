@@ -3,9 +3,9 @@
 namespace PaymentsGateway.Infrastructure.ExternalServices.Models;
 
 [GenerateOneOf]
-public partial class PaymentResults : OneOfBase<
-    PaymentResults.Success,
-    PaymentResults.Error>
+public partial class PaymentResult : OneOfBase<
+    PaymentResult.Success,
+    PaymentResult.Error>
 {
     public record Success(bool Authorized, string AuthorizationCode);
     public record Error();

@@ -49,7 +49,7 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
-                .ReturnsAsync(() => new PaymentResults.Error());
+                .ReturnsAsync(() => new PaymentResult.Error());
 
             var paymentRequest = CreatePaymentRequest();
 
@@ -71,7 +71,7 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
-                .ReturnsAsync(() => new PaymentResults.Success(
+                .ReturnsAsync(() => new PaymentResult.Success(
                     Authorized: true,
                     AuthorizationCode: Guid.NewGuid().ToString()));
 
@@ -99,7 +99,7 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
-                .ReturnsAsync(() => new PaymentResults.Success(
+                .ReturnsAsync(() => new PaymentResult.Success(
                     Authorized: false,
                     AuthorizationCode: ""));
 
@@ -120,7 +120,7 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
 
         private CreatePaymentRequest CreatePaymentRequest()
         {
-            return new CreatePaymentRequest(10, Currency.GBP, "1111111111111111", 10, 2028, "123");
+            return new CreatePaymentRequest("1111111111111111", 10, 2028, 10, Currency.GBP, "123");
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace PaymentsGateway.Domain.Models.Enum
+﻿namespace PaymentsGateway.Domain.Models.Enum;
+
+public enum Currency
 {
-    public enum Currency
-    {
-        GBP,
-        USD,
-        EUR
-    }
+    GBP,
+    USD,
+    EUR
 }

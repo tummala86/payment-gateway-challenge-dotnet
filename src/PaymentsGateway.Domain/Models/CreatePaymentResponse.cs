@@ -1,17 +1,16 @@
 ﻿using OneOf;
 
-namespace PaymentsGateway.Domain.Models
+namespace PaymentsGateway.Domain.Models;
+
+[GenerateOneOf]
+public partial class CreatePaymentResponse : OneOfBase<CreatePaymentResponse.Success, CreatePaymentResponse.InternalError>
 {
-    [GenerateOneOf]
-    public partial class CreatePaymentResponse : OneOfBase<CreatePaymentResponse.Success, CreatePaymentResponse.InternalError>
-    {
-        public record Success(PaymentDetails PaymentDetails);
-        public record InternalError();
+    public record Success(PaymentDetails PaymentDetails);
+    public record InternalError();
 
-        public bool IsSuccess => IsT0;
-        public Success AsSuccess => AsT0;
+    public bool IsSuccess => IsT0;
+    public Success AsSuccess => AsT0;
 
-        public bool IsInternalError => IsT1;
-        public InternalError AsInternalError => AsT1;
-    }
+    public bool IsInternalError => IsT1;
+    public InternalError AsInternalError => AsT1;
 }

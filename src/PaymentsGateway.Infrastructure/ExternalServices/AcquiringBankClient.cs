@@ -16,7 +16,7 @@ public class AcquiringBankClient : IAcquiringBankClient
         _logger = logger;
     }
 
-    public async Task<PaymentResults> ProcessPayment(PaymentRequest request)
+    public async Task<PaymentResult> ProcessPayment(PaymentRequest request)
     {
         try
         {
@@ -29,19 +29,19 @@ public class AcquiringBankClient : IAcquiringBankClient
                 var paymentResponse = JsonSerializer.Deserialize<PaymentResponse>(content);
 
                 return paymentResponse is null
-                ? new PaymentResults.Error()
-                : new PaymentResults.Success(
+                ? new PaymentResult.Error()
+                : new PaymentResult.Success(
                     paymentResponse.Authorized,
                     paymentResponse.AuthorizationCode);
             }
 
             _logger.LogInformation($"There is an error while processing payment : {content}");
-            return new PaymentResults.Error();
+            return new PaymentResult.Error();
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "There is an error while processing payment");
-            return new PaymentResults.Error();
+            return new PaymentResult.Error();
         }
     }
 }

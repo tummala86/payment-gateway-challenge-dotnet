@@ -39,7 +39,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("CardNumber", "1234567898765432", true)]
         [InlineData("CardNumber", "12", false)]
         [InlineData("CardNumber", "", false)]
-        public void Should_Validate_Card_Field(string fieldName, string? value, bool isValid)
+        public void Should_Validate_Card_Field(string fieldName, string value, bool isValid)
         {
             StandardValidators.ValidateCardNumber(fieldName, value).IsSuccess.Should().Be(isValid);
         }
@@ -48,7 +48,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("Currency", "GBP", true)]
         [InlineData("Currency", "GB", false)]
         [InlineData("Currency", "", false)]
-        public void Should_Validate_Currency_Field(string fieldName, string? value, bool isValid)
+        public void Should_Validate_Currency_Field(string fieldName, string value, bool isValid)
         {
             StandardValidators.ValidateCurrency(fieldName, value).IsSuccess.Should().Be(isValid);
         }
@@ -57,7 +57,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("Cvv", "123", true)]
         [InlineData("Cvv", "12", false)]
         [InlineData("Cvv", "", false)]
-        public void Should_Validate_Cvv_Field(string fieldName, string? value, bool isValid)
+        public void Should_Validate_Cvv_Field(string fieldName, string value, bool isValid)
         {
             StandardValidators.ValidateCvv(fieldName, value).IsSuccess.Should().Be(isValid);
         }
@@ -71,16 +71,17 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         }
 
         [Theory]
-        [InlineData("ExpiryYear", 2027, true)]
-        [InlineData("ExpiryYear", 2024, true)]
-        [InlineData("ExpiryYear", 2022, false)]
-        [InlineData("ExpiryYear", 2023, false)]
-        [InlineData("ExpiryYear", 0, false)]
-        public void Should_Validate_ExpiryYear_Field(string fieldName, int year, bool isValid)
+        [InlineData("ExpiryYear", 5, 2027, true)]
+        [InlineData("ExpiryYear", 10, 2024, true)]
+        [InlineData("ExpiryYear", 9, 2024, false)]
+        [InlineData("ExpiryYear", 1, 2022, false)]
+        [InlineData("ExpiryYear", 6, 2023, false)]
+        [InlineData("ExpiryYear", 0, 0, false)]
+        public void Should_Validate_ExpiryYear_Field(string fieldName, int month, int year, bool isValid)
         {
             _timeProvider.Setup(x => x.GetUtcNow()).Returns(DateTime.UtcNow);
 
-            StandardValidators.ValidateExpiryYear(fieldName, year, _timeProvider.Object).IsSuccess.Should().Be(isValid);
+            StandardValidators.ValidateExpiryYear(fieldName, month, year, _timeProvider.Object).IsSuccess.Should().Be(isValid);
         }
 
         [Theory]

@@ -12,7 +12,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
     {
         [Theory]
         [MemberData(nameof(PostPaymentRequest))]
-        public async Task CreatePayment_ShouldReturnPayment(PostPaymentRequest postPaymentRequest, string expectedPaymentStatus)
+        public async Task CreatePayment_ShouldReturnSuccess(PostPaymentRequest postPaymentRequest, string expectedPaymentStatus)
         {
             // Arrange
             var client = Server.CreateClient();
