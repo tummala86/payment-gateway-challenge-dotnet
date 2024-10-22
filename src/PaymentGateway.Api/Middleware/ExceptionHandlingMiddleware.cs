@@ -1,4 +1,4 @@
-﻿namespace PaymentsGateway.Api.Middleware;
+﻿namespace PaymentGateway.Api.Middleware;
 
 public class ExceptionHandlingMiddleware
 {

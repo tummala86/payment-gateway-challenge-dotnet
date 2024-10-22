@@ -1,8 +1,8 @@
 ﻿using PaymentGateway.Api.Models.Requests;
-using PaymentsGateway.Domain.Models;
-using PaymentsGateway.Domain.Models.Enum;
+using PaymentGateway.Domain.Models;
+using PaymentGateway.Domain.Models.Enum;
 
-namespace PaymentsGateway.Api.Extensions;
+namespace PaymentGateway.Api.Extensions;
 
 public static class CreatePaymentRequestExtensions
 {

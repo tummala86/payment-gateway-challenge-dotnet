@@ -1,8 +1,8 @@
 ﻿using PaymentGateway.Api.Models.Responses;
-using PaymentsGateway.Domain.Models.Enum;
-using DomainPaymentDetails = PaymentsGateway.Domain.Models.PaymentDetails;
+using PaymentGateway.Domain.Models.Enum;
+using DomainPaymentDetails = PaymentGateway.Domain.Models.PaymentDetails;
 
-namespace PaymentsGateway.Api.Mappers;
+namespace PaymentGateway.Api.Mappers;
 
 public static class DomainToApiMapper
 {

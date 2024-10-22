@@ -8,8 +8,8 @@
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
   </ItemGroup>
   <ItemGroup>
-		<ProjectReference Include="..\PaymentsGateway.Domain\PaymentsGateway.Domain.csproj" />
-		<ProjectReference Include="..\PaymentsGateway.Infrastructure\PaymentsGateway.Infrastructure.csproj" />
+		<ProjectReference Include="..\PaymentGateway.Domain\PaymentGateway.Domain.csproj" />
+		<ProjectReference Include="..\PaymentGateway.Infrastructure\PaymentGateway.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

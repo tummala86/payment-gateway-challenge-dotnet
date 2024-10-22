@@ -1,9 +1,9 @@
 using Hellang.Middleware.ProblemDetails;
-using PaymentsGateway.Api.Constants;
-using PaymentsGateway.Api.Extensions;
-using PaymentsGateway.Api.Middleware;
+using PaymentGateway.Api.Constants;
+using PaymentGateway.Api.Extensions;
+using PaymentGateway.Api.Middleware;
 
-using ProblemDetailsExtensions = PaymentsGateway.Api.Extensions.ProblemDetailsExtensions;
+using ProblemDetailsExtensions = PaymentGateway.Api.Extensions.ProblemDetailsExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +43,7 @@ app.MapHealthChecks(ApiRoutes.HealthChecks.Internal);
 app.Run();
 
 
-namespace PaymentsGateway.Api
+namespace PaymentGateway.Api
 {
     public partial class Program { }
 }

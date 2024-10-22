@@ -1,6 +1,6 @@
-﻿using PaymentsGateway.Domain.Validators;
+﻿using PaymentGateway.Domain.Validators;
 
-namespace PaymentsGateway.Api.Validation;
+namespace PaymentGateway.Api.Validation;
 
 public interface IRequestValidator<in T>
 {

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using PaymentsGateway.Api.Constants;
+using PaymentGateway.Api.Constants;
 
-namespace PaymentsGateway.Api.Extensions;
+namespace PaymentGateway.Api.Extensions;
 
 internal record ExceptionDetails(HttpStatusCode StatusCode, string Type, string Title, string Detail);
 

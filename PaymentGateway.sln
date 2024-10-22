@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Api", "src\P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1EF69307-274F-458E-BBE8-4D390512A8C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway.Domain", "src\PaymentsGateway.Domain\PaymentsGateway.Domain.csproj", "{7BA32400-1E6B-4680-93F3-7BB4F00DE297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Domain", "src\PaymentGateway.Domain\PaymentGateway.Domain.csproj", "{7BA32400-1E6B-4680-93F3-7BB4F00DE297}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway.Infrastructure", "src\PaymentsGateway.Infrastructure\PaymentsGateway.Infrastructure.csproj", "{38E959FD-82F6-4C0A-B8A8-8AC101A2BAB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Infrastructure", "src\PaymentGateway.Infrastructure\PaymentGateway.Infrastructure.csproj", "{38E959FD-82F6-4C0A-B8A8-8AC101A2BAB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway.Test.Integration", "test\PaymentsGateway.Test.Integration\PaymentsGateway.Test.Integration.csproj", "{FB01248C-73A9-4510-AE86-ADA56FA89850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Test.Integration", "test\PaymentGateway.Test.Integration\PaymentGateway.Test.Integration.csproj", "{FB01248C-73A9-4510-AE86-ADA56FA89850}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway.Test.Unit", "test\PaymentsGateway.Test.Unit\PaymentsGateway.Test.Unit.csproj", "{467409E7-AFB7-4A8A-939E-0CF2D5544392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Test.Unit", "test\PaymentGateway.Test.Unit\PaymentGateway.Test.Unit.csproj", "{467409E7-AFB7-4A8A-939E-0CF2D5544392}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

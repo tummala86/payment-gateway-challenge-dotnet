@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using PaymentsGateway.Api.Constants;
+using PaymentGateway.Api.Constants;
 using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
 
-namespace PaymentsGateway.Api.Extensions;
+namespace PaymentGateway.Api.Extensions;
 
 internal static class ProblemDetailsExtensions
 {

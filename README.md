@@ -1,4 +1,4 @@
-﻿# PaymentsGateway
+﻿# PaymentGateway
 The service hosts the following endpoints.
 
 ```
@@ -82,12 +82,12 @@ There are two ways to run this project:
 $ run docker-compose up
 ```
 
-2. Open the solution directly in Visual Studio and run the PaymentsGateway.API to run the API or You can build the API from the command line
+2. Open the solution directly in Visual Studio and run the PaymentGateway.API to run the API or You can build the API from the command line
 
 Build and run (from the project directory):
 ```sh
 $ dotnet build
-$ dotnet run --project .\PaymentsGateway.Api\PaymentsGateway.Api.csproj
+$ dotnet run --project .\PaymentGateway.Api\PaymentGateway.Api.csproj
 ```
 
 3. You can run the Tests from Test-->Run All Test Menu from Visual studio or run below command in terminal.

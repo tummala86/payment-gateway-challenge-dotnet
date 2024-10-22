@@ -1,4 +1,4 @@
-﻿namespace PaymentsGateway.Api.Constants;
+﻿namespace PaymentGateway.Api.Constants;
 
 public static class ErrorMessages
 {

@@ -1,8 +1,8 @@
 ﻿using PaymentGateway.Api.Models.Requests;
-using PaymentsGateway.Domain.Validators;
-using ValidationResult = PaymentsGateway.Domain.Validators.ValidationResult;
+using PaymentGateway.Domain.Validators;
+using ValidationResult = PaymentGateway.Domain.Validators.ValidationResult;
 
-namespace PaymentsGateway.Api.Validation;
+namespace PaymentGateway.Api.Validation;
 
 public class PostPaymentRequestValidator : IRequestValidator<PostPaymentRequest?>
 {

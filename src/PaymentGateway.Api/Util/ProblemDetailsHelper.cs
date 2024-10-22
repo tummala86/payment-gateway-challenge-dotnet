@@ -2,9 +2,9 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using PaymentsGateway.Api.Constants;
+using PaymentGateway.Api.Constants;
 
-namespace PaymentsGateway.Api.Util;
+namespace PaymentGateway.Api.Util;
 
 public class ProblemDetailsHelper
 {

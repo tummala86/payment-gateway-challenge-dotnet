@@ -1,15 +1,15 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using PaymentGateway.Api.Models.Requests;
-using PaymentsGateway.Api.Constants;
-using PaymentsGateway.Api.Extensions;
-using PaymentsGateway.Api.Mappers;
-using PaymentsGateway.Api.Util;
-using PaymentsGateway.Api.Validation;
-using PaymentsGateway.Domain.Handlers;
-using PaymentsGateway.Domain.Models;
-using PaymentsGateway.Domain.Validators;
-using GetPaymentResponse = PaymentsGateway.Domain.Models.GetPaymentResponse;
+using PaymentGateway.Api.Constants;
+using PaymentGateway.Api.Extensions;
+using PaymentGateway.Api.Mappers;
+using PaymentGateway.Api.Util;
+using PaymentGateway.Api.Validation;
+using PaymentGateway.Domain.Handlers;
+using PaymentGateway.Domain.Models;
+using PaymentGateway.Domain.Validators;
+using GetPaymentResponse = PaymentGateway.Domain.Models.GetPaymentResponse;
 
 namespace PaymentGateway.Api.Controllers;
 

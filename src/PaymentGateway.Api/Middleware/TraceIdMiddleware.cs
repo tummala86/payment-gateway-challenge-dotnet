@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using PaymentsGateway.Api.Constants;
+using PaymentGateway.Api.Constants;
 
-namespace PaymentsGateway.Api.Middleware;
+namespace PaymentGateway.Api.Middleware;
 
 public class TraceIdMiddleware
 {
