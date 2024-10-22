@@ -44,6 +44,15 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("Currency", "GBP", true)]
         [InlineData("Currency", "GB", false)]
         [InlineData("Currency", "", false)]
+        public void Should_Validate_Currency_Field_Value(string fieldName, string value, bool isValid)
+        {
+            StandardValidators.ValidateCurrencyValue(fieldName, value).IsSuccess.Should().Be(isValid);
+        }
+
+        [Theory]
+        [InlineData("Currency", "GBP", true)]
+        [InlineData("Currency", "AUD", false)]
+        [InlineData("Currency", "INR", false)]
         public void Should_Validate_Currency_Field(string fieldName, string value, bool isValid)
         {
             StandardValidators.ValidateCurrency(fieldName, value).IsSuccess.Should().Be(isValid);
