@@ -18,9 +18,9 @@ curl --location --request POST 'http://localhost:5067/payments' \
 --header 'IdempotencyKey: test3748335554ee4' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "card_number": "2222405343248877",
-    "expiry_month": 4,
-    "expiry_year": 2025,
+    "cardnumber": "2222405343248877",
+    "expirymonth": 4,
+    "expiryyear": 2025,
     "amount": 100,
     "currency": "GBP",
     "cvv": "123"
@@ -30,11 +30,11 @@ curl --location --request POST 'http://localhost:5067/payments' \
 **Response:**
 ```json
 {
-    "id": "c886043c-47ae-40b3-b958-8cec9a4932cd",
+    "id": "69fadc87-dfda-47e8-84a1-74aeaecaa92a",
     "status": "Authorized",
-    "card_number_last_four": "8877",
-    "expiry_month": 4,
-    "expiry_year": 2025,
+    "cardNumberLastFour": "8877",
+    "expiryMonth": 4,
+    "expiryYear": 2025,
     "currency": "GBP",
     "amount": 100
 }
@@ -49,11 +49,11 @@ curl --location --request GET 'http://localhost:5067/payments/c886043c-47ae-40b3
 **Response:**
 ```json
 {
-    "id": "c886043c-47ae-40b3-b958-8cec9a4932cd",
+    "id": "69fadc87-dfda-47e8-84a1-74aeaecaa92a",
     "status": "Authorized",
-    "card_number_last_four": "8877",
-    "expiry_month": 4,
-    "expiry_year": 2025,
+    "cardNumberLastFour": "8877",
+    "expiryMonth": 4,
+    "expiryYear": 2025,
     "currency": "GBP",
     "amount": 100
 }
