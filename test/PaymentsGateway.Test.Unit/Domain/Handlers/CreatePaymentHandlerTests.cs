@@ -4,6 +4,8 @@ using PaymentsGateway.Domain.Handlers;
 using PaymentsGateway.Domain.Models;
 using PaymentsGateway.Domain.Models.Enum;
 using PaymentsGateway.Domain.Ports;
+using PaymentsGateway.Infrastructure;
+
 using Xunit;
 
 namespace PaymentsGateway.Test.Unit.Domain.Handlers
@@ -19,21 +21,24 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
         }
 
         [Fact]
-        public async Task Should_Retrun_Internal_Error()
+        public async Task HandleAsync_ShouldRetrunInternalError_WhenCreatePaymentFailed()
         {
             // Arrange
             _createPaymentCommandMock.Setup(x => x.CreatePayment(It.IsAny<CreatePaymentRequest>()))
                 .ReturnsAsync(() => new CreatePaymentResponse.InternalError());
+            
+            var paymentRequest = CreatePaymentRequest();
 
             // Act
-            var result = await _sut.HandleAsync(CreatePaymentRequest());
+            var result = await _sut.HandleAsync(paymentRequest);
 
             // Assert
             result.IsInternalError.Should().BeTrue();
+            _createPaymentCommandMock.Verify(d => d.CreatePayment(It.IsAny<CreatePaymentRequest>()), Times.Once());
         }
 
         [Fact]
-        public async Task Should_Retrun_Success()
+        public async Task HandleAsync_ShouldRetrunSuccess_WhenCreatePaymentSuccess()
         {
             // Arrange
             _createPaymentCommandMock.Setup(x => x.CreatePayment(It.IsAny<CreatePaymentRequest>()))
@@ -44,12 +49,15 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
                 10,
                 2028,
                 200)));
+            
+            var paymentRequest = CreatePaymentRequest();
 
             // Act
-            var result = await _sut.HandleAsync(CreatePaymentRequest());
+            var result = await _sut.HandleAsync(paymentRequest);
 
             // Assert
             result.IsSuccess.Should().BeTrue();
+            _createPaymentCommandMock.Verify(d => d.CreatePayment(It.IsAny<CreatePaymentRequest>()), Times.Once());
         }
 
         private CreatePaymentRequest CreatePaymentRequest()

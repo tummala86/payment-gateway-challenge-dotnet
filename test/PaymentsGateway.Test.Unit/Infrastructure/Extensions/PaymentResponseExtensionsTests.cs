@@ -31,6 +31,10 @@ namespace PaymentsGateway.Test.Unit.Infrastructure.Extensions
             // Assert
             result.Id.Should().Be(payment.Id);
             result.Status.Should().Be(PaymentStatus.Authorized);
+            result.CardNumber.Should().Be(payment.CardNumber);
+            result.Amount.Should().Be(payment.Amount);
+            result.ExpiryMonth.Should().Be(payment.ExpiryMonth);
+            result.ExpiryYear.Should().Be(payment.ExpiryYear);
         }
     }
 }

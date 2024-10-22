@@ -3,7 +3,7 @@
 public record GetPaymentResponse(
     Guid Id, 
     string Status, 
-    string CardNumber, 
+    string CardNumberLastFour, 
     int ExpiryMonth,
     int ExpiryYear,
     string Currency, 

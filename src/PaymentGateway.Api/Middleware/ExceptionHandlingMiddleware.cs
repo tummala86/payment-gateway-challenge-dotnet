@@ -21,22 +21,9 @@ namespace PaymentsGateway.Api.Middleware
             try
             {
                 await _next(context);
-
-                if (context.Response.StatusCode == (int)HttpStatusCode.Conflict)
-                {
-                    throw new ProblemDetailsException(ExceptionDetailsMapping.IdempotencyKeyConflictError.CreateProblemDetails());
-                }
-                else if (context.Response.StatusCode == (int)HttpStatusCode.NotAcceptable)
-                {
-                    throw new ProblemDetailsException(ExceptionDetailsMapping.IdempotencyKeyReuseError.CreateProblemDetails());
-                }
             }
             catch (Exception ex)
             {
-                if (ex is ArgumentNullException && ex.Message.Contains(ApiHeaders.IdempotencyKey))
-                {
-                    throw new ProblemDetailsException(ExceptionDetailsMapping.IdempotencyKeyError.CreateProblemDetails());
-                }
                 _logger.LogError(ex, $"Unhandled exception: {ex.Message}");
                 throw;
             }

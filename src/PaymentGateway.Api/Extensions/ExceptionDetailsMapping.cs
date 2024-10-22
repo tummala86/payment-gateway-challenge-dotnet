@@ -24,20 +24,5 @@ namespace PaymentsGateway.Api.Extensions
             ErrorMessages.InternalServerErrorType,
             ErrorMessages.InternalServerError,
             ErrorMessages.InternalServerErrorDetail);
-
-        public static readonly ExceptionDetails IdempotencyKeyError = new(HttpStatusCode.BadRequest,
-            ErrorMessages.InvalidParametersType,
-            ReasonPhrases.GetReasonPhrase((int)HttpStatusCode.BadRequest),
-            ErrorMessages.IdempotencyKeyError);
-
-        public static readonly ExceptionDetails IdempotencyKeyConflictError = new(HttpStatusCode.Conflict,
-            ErrorMessages.IdempotencyKeyConflictErrorType,
-            ErrorMessages.IdempotencyKeyConflictErrorTitle,
-            ErrorMessages.IdempotencyKeyConflictError);
-
-        public static readonly ExceptionDetails IdempotencyKeyReuseError = new(HttpStatusCode.UnprocessableEntity,
-            ErrorMessages.IdempotencyKeyReuseErrorType,
-            ErrorMessages.IdempotencyKeyReuseErrorTitle,
-            ErrorMessages.IdempotencyKeyReuseError);
     }
 }

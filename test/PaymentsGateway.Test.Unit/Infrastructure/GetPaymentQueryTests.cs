@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using PaymentsGateway.Domain.Models;
+using PaymentsGateway.Domain.Models.Enum;
 using PaymentsGateway.Infrastructure;
 using PaymentsGateway.Infrastructure.Database.Entities;
 using PaymentsGateway.Infrastructure.Repositories;
@@ -21,7 +22,7 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
         }
 
         [Fact]
-        public async Task GetPayment_Should_Retrun_Payment_NotFound_Error()
+        public async Task GetPayment_ShouldRetrunPaymentNotFound_WhenPaymentDoesnotExists()
         {
             // Arrange
             _paymentRepository.Setup(x => x.GetAsync(It.IsAny<Guid>()));
@@ -36,23 +37,33 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
         }
 
         [Fact]
-        public async Task GetPayment_Should_Retrun_Payment_Details()
+        public async Task GetPayment_ShouldRetrunSuccess_WhenPaymentExists()
         {
             // Arrange
+            var paymentId = Guid.NewGuid();
+
             _paymentRepository.Setup(x => x.GetAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(() => new Payment()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = paymentId,
                     CardNumber = "1234567898765432",
-                    Cvv = "123"
+                    Cvv = "123",
+                    ExpiryYear = 2028,
+                    ExpiryMonth = 10,
+                    Amount = 200,
+                    Currency = Currency.GBP,
+                    Status = PaymentStatus.Authorized
                 });
-            var getPaymentRequest = new GetPaymentRequest(Guid.NewGuid());
+
+            var getPaymentRequest = new GetPaymentRequest(paymentId);
 
             // Act
             var result = await _sut.GetPayment(getPaymentRequest);
 
             // Assert
             result.IsSuccess.Should().BeTrue();
+            result.AsSuccess.PaymentDetails.Id.Should().Be(paymentId);
+            result.AsSuccess.PaymentDetails.Status.Should().Be(PaymentStatus.Authorized);
         }
     }
 }

@@ -4,11 +4,11 @@ using ValidationResult = PaymentsGateway.Domain.Validators.ValidationResult;
 
 namespace PaymentsGateway.Api.Validation
 {
-    public class PaymentRequestValidator : IRequestValidator<PostPaymentRequest?>
+    public class PostPaymentRequestValidator : IRequestValidator<PostPaymentRequest?>
     {
         private readonly TimeProvider _timeProvider;
 
-        public PaymentRequestValidator(TimeProvider timeProvider) 
+        public PostPaymentRequestValidator(TimeProvider timeProvider) 
         {
             _timeProvider = timeProvider;
         }
@@ -26,9 +26,9 @@ namespace PaymentsGateway.Api.Validation
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.CardNumber), request.CardNumber))
                 .ContinueIfSuccess(() => StandardValidators.ValidateCardNumber(nameof(request.CardNumber), request.CardNumber))
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.ExpiryMonth), request.ExpiryMonth))
-                .ContinueIfSuccess(() => StandardValidators.ValidateMonth(nameof(request.ExpiryMonth), request.ExpiryMonth))
+                .ContinueIfSuccess(() => StandardValidators.ValidateExpiryMonth(nameof(request.ExpiryMonth), request.ExpiryMonth))
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.ExpiryYear), request.ExpiryYear))
-                .ContinueIfSuccess(() => StandardValidators.ValidateYear(nameof(request.ExpiryYear), request.ExpiryYear, _timeProvider))
+                .ContinueIfSuccess(() => StandardValidators.ValidateExpiryYear(nameof(request.ExpiryYear), request.ExpiryYear, _timeProvider))
                 .ContinueIfSuccess(() => StandardValidators.ValidateExpiryDate(nameof(request.ExpiryYear), request.ExpiryMonth, request.ExpiryYear, _timeProvider))
                 .ContinueIfSuccess(() => StandardValidators.ValidateAmount(nameof(request.Amount), request.Amount))
                 .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.Cvv), request.Cvv))

@@ -90,13 +90,16 @@ To run tests:
 $ dotnet test
 ```
 
+Assumptions
+
+- The `authorization_code` is not part of the API response, but I assume we need it later, so it is stored in the repository for future processing needs.
+
 ## Areas for Improvements
 
 - Introduce JWT Authentication and request signing to secure the application.
-- I would implement custom Idempotency in real time. Currently using opensource IdempotentAPI to achieve the test functionality. 
-- Improve exception handling and logging to trace the issues quickly. I would use Elastic search to store logs for quicker search and visualisations.
-- Consider event-driven architecture for asyncronous communication with banks. I would use webhooks to send payment status updates to clients.
-- I would create Graphana dashbords to monitor service health.
+- I would implement custom Idempotency in real time. To avoid creating multiple payments for the same request. This could be achieved by sending an idempotency key as a request header. 
+- As part of service observability, I would improve exception handling and logging to debug errors quickly. I would use Elastic search to store logs for quicker search and visualisations.
+- As part of service observability, I would create Graphana dashbords to monitor service health metrics.
 - Implementing resilience mechanisms by introducing [Polly](https://github.com/App-vNext/Polly#polly).
 - I would use Honeycomb tool to trace service requests.
 - I would implement rate limiting on public endpoints to limit the number of requests.

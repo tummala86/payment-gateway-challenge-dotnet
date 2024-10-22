@@ -18,7 +18,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
         }
 
         [Fact]
-        public async Task Should_Retrun_Internal_Error()
+        public async Task HandleAsync_ShouldRetrunInternalError_WhenGetPaymentFailed()
         {
             // Arrange
             _getPaymentQuery.Setup(x => x.GetPayment(It.IsAny<GetPaymentRequest>()))
@@ -29,10 +29,11 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
 
             // Assert
             result.IsInternalError.Should().BeTrue();
+            _getPaymentQuery.Verify(d => d.GetPayment(It.IsAny<GetPaymentRequest>()), Times.Once());
         }
 
         [Fact]
-        public async Task Should_Retrun_NotFound_Error()
+        public async Task HandleAsync_ShouldRetrunNotFoundError_WhenPaymentDoesnotExist()
         {
             // Arrange
             _getPaymentQuery.Setup(x => x.GetPayment(It.IsAny<GetPaymentRequest>()))
@@ -43,6 +44,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
 
             // Assert
             result.IsNotFound.Should().BeTrue();
+            _getPaymentQuery.Verify(d => d.GetPayment(It.IsAny<GetPaymentRequest>()), Times.Once());
         }
     }
 }

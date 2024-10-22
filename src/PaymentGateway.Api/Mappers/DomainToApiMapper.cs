@@ -6,7 +6,17 @@ namespace PaymentsGateway.Api.Mappers
 {
     public static class DomainToApiMapper
     {
-        public static GetPaymentResponse ToApiResponse(this DomainPaymentDetails response)
+        public static PostPaymentResponse ToPostPaymentResponse(this DomainPaymentDetails response)
+            => new(
+                response.Id,
+                response.Status.ToApiStatus(),
+                response.CardNumber[^4..],
+                response.ExpiryMonth,
+                response.ExpiryYear,
+                response.Currency.ToApiCurrency(),
+                response.Amount);
+
+        public static GetPaymentResponse ToGetPaymentResponse(this DomainPaymentDetails response)
             => new(
                 response.Id,
                 response.Status.ToApiStatus(),

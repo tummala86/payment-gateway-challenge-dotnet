@@ -14,7 +14,7 @@ namespace PaymentsGateway.Api.Extensions
     {
         public static void SetupServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IRequestValidator<PostPaymentRequest>, PaymentRequestValidator>();
+            services.AddScoped<IRequestValidator<PostPaymentRequest>, PostPaymentRequestValidator>();
             services.AddTransient<IRequestHandler<CreatePaymentRequest, CreatePaymentResponse>, CreatePaymentHandler>();
             services.AddTransient<IRequestHandler<GetPaymentRequest, GetPaymentResponse>, GetPaymentHandler>();
             services.AddTransient<ICreatePaymentCommand, CreatePaymentCommand>();

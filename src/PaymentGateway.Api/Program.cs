@@ -1,12 +1,8 @@
 using System.Text.Json.Serialization;
-
 using Hellang.Middleware.ProblemDetails;
-
 using IdempotentAPI.Cache.DistributedCache.Extensions.DependencyInjection;
 using IdempotentAPI.Extensions.DependencyInjection;
-
 using O9d.Json.Formatting;
-
 using PaymentsGateway.Api.Constants;
 using PaymentsGateway.Api.Extensions;
 using PaymentsGateway.Api.Middleware;
@@ -23,19 +19,9 @@ builder.Services.AddSwaggerGen();
 
 // Add services to the container.
 builder.Services.SetupServices(builder.Configuration);
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy();
-        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(new JsonSnakeCaseNamingPolicy()));
-    });
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddProblemDetails(ProblemDetailsExtensions.ConfigureProblemDetails);
 builder.Services.AddHealthChecks();
-builder.Services.AddIdempotentAPI();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddIdempotentAPIUsingDistributedCache();
 
 var app = builder.Build();
 

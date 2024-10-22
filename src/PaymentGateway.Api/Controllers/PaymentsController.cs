@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using IdempotentAPI.Filters;
 using Microsoft.AspNetCore.Mvc;
 using PaymentGateway.Api.Models.Requests;
 using PaymentsGateway.Api.Constants;
@@ -14,7 +13,6 @@ using GetPaymentResponse = PaymentsGateway.Domain.Models.GetPaymentResponse;
 
 namespace PaymentGateway.Api.Controllers;
 
-[Idempotent(Enabled = true)]
 [Route(ApiRoutes.Base)]
 [ApiController]
 public class PaymentsController : Controller
@@ -46,7 +44,7 @@ public class PaymentsController : Controller
         var createPaymentsResult = await _createPaymentRequestHandler.HandleAsync(paymentRequest.ToDomain());
 
         return createPaymentsResult.Match(
-            success => StatusCode((int)HttpStatusCode.Created, success.PaymentDetails.ToApiResponse()),
+            success => StatusCode((int)HttpStatusCode.Created, success.PaymentDetails.ToPostPaymentResponse()),
             internalError => StatusCode(
                 (int)HttpStatusCode.InternalServerError,
                 ProblemDetailsHelper.InternalServerError(ApiRoutes.Base))
@@ -56,19 +54,12 @@ public class PaymentsController : Controller
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var validationResult = GetPaymentRequestValidator.Validate(id);
-        if (validationResult.IsFailure)
-        {
-            var errors = validationResult.GetGroupErrors();
-            return StatusCode((int)HttpStatusCode.BadRequest, ProblemDetailsHelper.InvalidParameters(errors, ApiRoutes.Base));
-        }
-
         var domainGetPaymentRequest = new GetPaymentRequest(id);
 
         var result = await _getPaymentRequestHandler.HandleAsync(domainGetPaymentRequest);
 
         return result.Match(
-            success => Ok(success.PaymentDetails.ToApiResponse()),
+            success => Ok(success.PaymentDetails.ToGetPaymentResponse()),
             notFound => StatusCode(
                 (int)HttpStatusCode.NotFound,
                 ProblemDetailsHelper.PaymentNotFound(ApiRoutes.Base)),

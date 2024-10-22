@@ -67,7 +67,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("ExpiryMonth", 0, false)]
         public void Should_Validate_ExpiryMonth_Field(string fieldName, int month, bool isValid)
         {
-            StandardValidators.ValidateMonth(fieldName, month).IsSuccess.Should().Be(isValid);
+            StandardValidators.ValidateExpiryMonth(fieldName, month).IsSuccess.Should().Be(isValid);
         }
 
         [Theory]
@@ -80,7 +80,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         {
             _timeProvider.Setup(x => x.GetUtcNow()).Returns(DateTime.UtcNow);
 
-            StandardValidators.ValidateYear(fieldName, year, _timeProvider.Object).IsSuccess.Should().Be(isValid);
+            StandardValidators.ValidateExpiryYear(fieldName, year, _timeProvider.Object).IsSuccess.Should().Be(isValid);
         }
 
         [Theory]

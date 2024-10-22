@@ -33,26 +33,26 @@ namespace PaymentsGateway.Domain.Validators
         {
             Regex regex = new("^[0-9]{14,19}$");
             return !regex.Match(value).Success
-                           ? StandardParameterErrors.InvalidCardValue(fieldName)
-                           : new ValidationResult.Success();
+                    ? StandardParameterErrors.InvalidCardValue(fieldName)
+                    : new ValidationResult.Success();
         }
 
         public static ValidationResult ValidateCvv(string fieldName, string value)
         {
             Regex regex = new("^[0-9]{3,4}$");
             return !regex.Match(value).Success
-                           ? StandardParameterErrors.InvalidCvvValue(fieldName)
-                           : new ValidationResult.Success();
+                    ? StandardParameterErrors.InvalidCvvValue(fieldName)
+                    : new ValidationResult.Success();
         }
 
-        public static ValidationResult ValidateMonth(string fieldName, int? value)
+        public static ValidationResult ValidateExpiryMonth(string fieldName, int? value)
         {
             return value is not null && (value >= 1 && value <= 12)
-           ? new ValidationResult.Success()
-           : StandardParameterErrors.InvalidMonthValue(fieldName);
+                    ? new ValidationResult.Success()
+                    : StandardParameterErrors.InvalidMonthValue(fieldName);
         }
 
-        public static ValidationResult ValidateYear(string fieldName, int? value, TimeProvider timeProvider)
+        public static ValidationResult ValidateExpiryYear(string fieldName, int? value, TimeProvider timeProvider)
         {
             var currentDate = timeProvider.GetUtcNow();
 

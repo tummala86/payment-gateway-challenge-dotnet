@@ -25,24 +25,48 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
         }
 
         [Fact]
-        public async Task CreatePayment_Should_Retrun_Internal_Error()
+        public async Task CreatePayment_ShouldRetrunInternalError_WhenInsertAsyncFailed()
         {
             // Arrange
             _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()));
 
+            var paymentRequest = CreatePaymentRequest();
+
             // Act
-            var result = await _sut.CreatePayment(CreatePaymentRequest());
+            var result = await _sut.CreatePayment(paymentRequest);
 
             // Assert
             result.IsInternalError.Should().BeTrue();
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Never());
         }
 
-        [Theory]
-        [InlineData(PaymentStatus.Authorized)]
-        public async Task CreatePayment_Should_Retrun_Success(
-            PaymentStatus paymentStatus)
+        [Fact]
+        public async Task CreatePayment_ShouldRetrunInternalError_WhenProcessPaymentFailed()
         {
             // Arrange
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
+                .ReturnsAsync(() => new Payment());
+
+            _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
+                .ReturnsAsync(() => new PaymentResults.Error());
+
+            var paymentRequest = CreatePaymentRequest();
+
+            // Act
+            var result = await _sut.CreatePayment(paymentRequest);
+
+            // Assert
+            result.IsInternalError.Should().BeTrue();
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
+        }
+
+        [Fact]
+        public async Task CreatePayment_ShouldRetrunSuccess_WhenPaymentAuthorized()
+        {
+            // Arrange
+            var paymentStatus = PaymentStatus.Authorized;
             _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
                 .ReturnsAsync(() => new Payment());
 
@@ -54,12 +78,44 @@ namespace PaymentsGateway.Test.Unit.Infrastructure
             _paymentRepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Payment>(), It.IsAny<string>()))
                 .ReturnsAsync(() => new Payment() { Status = paymentStatus });
 
+            var paymentRequest = CreatePaymentRequest();
+
             // Act
-            var result = await _sut.CreatePayment(CreatePaymentRequest());
+            var result = await _sut.CreatePayment(paymentRequest);
 
             // Assert
             result.IsSuccess.Should().BeTrue();
             result.AsSuccess.PaymentDetails.Status.Should().Be(paymentStatus);
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
+        }
+
+        [Fact]
+        public async Task CreatePayment_ShouldRetrunSuccess_WhenPaymentDeclined()
+        {
+            // Arrange
+            var paymentStatus = PaymentStatus.Declined;
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
+                .ReturnsAsync(() => new Payment());
+
+            _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
+                .ReturnsAsync(() => new PaymentResults.Success(
+                    Authorized: false,
+                    AuthorizationCode: ""));
+
+            _paymentRepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Payment>(), It.IsAny<string>()))
+                .ReturnsAsync(() => new Payment() { Status = paymentStatus });
+
+            var paymentRequest = CreatePaymentRequest();
+
+            // Act
+            var result = await _sut.CreatePayment(paymentRequest);
+
+            // Assert
+            result.IsSuccess.Should().BeTrue();
+            result.AsSuccess.PaymentDetails.Status.Should().Be(paymentStatus);
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
         }
 
         private CreatePaymentRequest CreatePaymentRequest()

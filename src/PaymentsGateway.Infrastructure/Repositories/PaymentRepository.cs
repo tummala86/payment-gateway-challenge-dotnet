@@ -10,21 +10,17 @@ namespace PaymentsGateway.Infrastructure.Repositories
     {
         public async Task<Payment?> GetAsync(Guid id)
         {
-            using (var context = new PaymentGatewayDbContext())
-            {
-                return await context.Payments.FirstOrDefaultAsync(p => p.Id == id);
-            }
+            using var context = new PaymentGatewayDbContext();
+            return await context.Payments.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Payment> InsertAsync(CreatePaymentRequest createPaymentRequest)
         {
-            using (var context = new PaymentGatewayDbContext())
-            {
-                var paymentRequest = createPaymentRequest.ToPaymentEntity(Guid.NewGuid());
-                await context.Payments.AddAsync(paymentRequest);
-                await context.SaveChangesAsync();
-                return paymentRequest;
-            }
+            using var context = new PaymentGatewayDbContext();
+            var paymentRequest = createPaymentRequest.ToPaymentEntity(Guid.NewGuid());
+            await context.Payments.AddAsync(paymentRequest);
+            await context.SaveChangesAsync();
+            return paymentRequest;
         }
 
         public async Task<Payment> UpdateAsync(Payment payment, string authorizationCode)
@@ -34,12 +30,10 @@ namespace PaymentsGateway.Infrastructure.Repositories
             paymentDetails.BankAuthorizationCode = authorizationCode;
             paymentDetails.UpdatedAt = DateTime.UtcNow;
 
-            using (var context = new PaymentGatewayDbContext())
-            {
-                context.Payments.Update(paymentDetails);
-                await context.SaveChangesAsync();
-                return payment;
-            }
+            using var context = new PaymentGatewayDbContext();
+            context.Payments.Update(paymentDetails);
+            await context.SaveChangesAsync();
+            return payment;
         }
     }
 }
