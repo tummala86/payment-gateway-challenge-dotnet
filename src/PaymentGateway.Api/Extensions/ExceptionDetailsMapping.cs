@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using PaymentsGateway.Api.Constants;
-using System.Net;
 
 namespace PaymentsGateway.Api.Extensions;
 

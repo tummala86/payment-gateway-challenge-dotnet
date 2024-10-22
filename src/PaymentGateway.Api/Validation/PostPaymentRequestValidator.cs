@@ -8,7 +8,7 @@ public class PostPaymentRequestValidator : IRequestValidator<PostPaymentRequest?
 {
     private readonly TimeProvider _timeProvider;
 
-    public PostPaymentRequestValidator(TimeProvider timeProvider) 
+    public PostPaymentRequestValidator(TimeProvider timeProvider)
     {
         _timeProvider = timeProvider;
     }
@@ -22,6 +22,7 @@ public class PostPaymentRequestValidator : IRequestValidator<PostPaymentRequest?
 
         return ValidationResult.Combine(StandardValidators.ValidateRequired(nameof(request.Amount), request.Amount)
             .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.Currency), request.Currency))
+            .ContinueIfSuccess(() => StandardValidators.ValidateCurrencyValue(nameof(request.Currency), request.Currency))
             .ContinueIfSuccess(() => StandardValidators.ValidateCurrency(nameof(request.Currency), request.Currency))
             .ContinueIfSuccess(() => StandardValidators.ValidateRequired(nameof(request.CardNumber), request.CardNumber))
             .ContinueIfSuccess(() => StandardValidators.ValidateCardNumber(nameof(request.CardNumber), request.CardNumber))

@@ -3,8 +3,8 @@
 namespace PaymentsGateway.Domain.Models
 {
     public record CreatePaymentRequest(
-        string CardNumber, 
-        int ExpiryMonth, 
+        string CardNumber,
+        int ExpiryMonth,
         int ExpiryYear,
         int Amount,
         Currency Currency,

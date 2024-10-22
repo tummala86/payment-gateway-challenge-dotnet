@@ -4,6 +4,7 @@ namespace PaymentsGateway.Domain.Validators;
 
 public static class StandardValidators
 {
+    private static readonly string[] ValidCurrencies = ["USD", "EUR", "GBP"];
 
     public static ValidationResult ValidateRequired(string fieldName, string? value)
         => string.IsNullOrWhiteSpace(value)
@@ -20,9 +21,14 @@ public static class StandardValidators
         ? StandardParameterErrors.InvalidUuidValue(fieldName)
         : new ValidationResult.Success();
 
-    public static ValidationResult ValidateCurrency(string fieldName, string value)
+    public static ValidationResult ValidateCurrencyValue(string fieldName, string value)
         => value.Length != 3
         ? StandardParameterErrors.InvalidCurrencyValue(fieldName)
+        : new ValidationResult.Success();
+
+    public static ValidationResult ValidateCurrency(string fieldName, string value)
+        => value.Length == 3 && !ValidCurrencies.Contains(value)
+        ? StandardParameterErrors.InvalidCurrency(fieldName)
         : new ValidationResult.Success();
 
     public static ValidationResult ValidateAmount(string fieldName, int value)

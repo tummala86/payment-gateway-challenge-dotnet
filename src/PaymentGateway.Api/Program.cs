@@ -1,9 +1,4 @@
-using System.Text.Json.Serialization;
-
 using Hellang.Middleware.ProblemDetails;
-
-using O9d.Json.Formatting;
-
 using PaymentsGateway.Api.Constants;
 using PaymentsGateway.Api.Extensions;
 using PaymentsGateway.Api.Middleware;
@@ -13,13 +8,7 @@ using ProblemDetailsExtensions = PaymentsGateway.Api.Extensions.ProblemDetailsEx
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy();
-        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(new JsonSnakeCaseNamingPolicy()));
-    }); ;
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -58,4 +47,3 @@ namespace PaymentsGateway.Api
 {
     public partial class Program { }
 }
-

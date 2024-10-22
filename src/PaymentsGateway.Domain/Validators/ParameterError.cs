@@ -14,6 +14,9 @@ public static class StandardParameterErrors
     public static ParameterError InvalidCurrencyValue(string fieldName)
         => new(fieldName, "Value must be 3 characters long.");
 
+    public static ParameterError InvalidCurrency(string fieldName)
+        => new(fieldName, "Invalid value.");
+
     public static ParameterError InvalidCardValue(string fieldName)
         => new(fieldName, "Value must be a 14-19 digit string.");
 
@@ -28,9 +31,6 @@ public static class StandardParameterErrors
 
     public static ParameterError InvalidExpiryMonthAndYearValue(string fieldName)
         => new(fieldName, "Value must be in the future.");
-
-    public static ParameterError InvalidCurrencyCodeValue(string fieldName)
-        => new(fieldName, "Invalid value.");
 }
 
 public static class ParameterErrorExtensions

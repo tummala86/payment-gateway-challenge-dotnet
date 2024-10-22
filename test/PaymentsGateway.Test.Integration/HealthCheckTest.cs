@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using FluentAssertions;
 using PaymentsGateway.Api.Constants;
 using PaymentsGateway.Test.Integration.Fixtures;
-using System.Net;
 using Xunit;
 
 namespace PaymentsGateway.Test.Integration

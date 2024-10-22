@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using System.Net.Http.Json;
+using FluentAssertions;
 using PaymentGateway.Api.Models.Requests;
 using PaymentGateway.Api.Models.Responses;
 using PaymentsGateway.Test.Integration.Fixtures;
-using System.Net;
-using System.Net.Http.Json;
 using Xunit;
 
 namespace PaymentsGateway.Test.Integration.CreatePayment
@@ -34,7 +34,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
 
         public static IEnumerable<object[]> PostPaymentRequest => new List<object[]>
         {
-            new object[] { 
+            new object[] {
                 new PostPaymentRequest(
                 CardNumber: "2222405343248877",
                 ExpiryMonth: 4,
@@ -43,7 +43,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
                 Currency: "GBP",
                 Amount: 100),
                 "Authorized"},
-            new object[] { 
+            new object[] {
                 new PostPaymentRequest(
                 CardNumber: "2222405343248112",
                 ExpiryMonth: 1,

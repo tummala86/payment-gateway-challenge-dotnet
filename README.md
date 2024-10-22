@@ -32,7 +32,7 @@ curl --location --request POST 'http://localhost:5067/payments' \
 {
     "id": "c886043c-47ae-40b3-b958-8cec9a4932cd",
     "status": "Authorized",
-    "card_number": "8877",
+    "card_number_last_four": "8877",
     "expiry_month": 4,
     "expiry_year": 2025,
     "currency": "GBP",
@@ -51,7 +51,7 @@ curl --location --request GET 'http://localhost:5067/payments/c886043c-47ae-40b3
 {
     "id": "c886043c-47ae-40b3-b958-8cec9a4932cd",
     "status": "Authorized",
-    "card_number": "8877",
+    "card_number_last_four": "8877",
     "expiry_month": 4,
     "expiry_year": 2025,
     "currency": "GBP",
@@ -75,17 +75,23 @@ $ git clone https://github.com/tummala86/payment-gateway-challenge-dotnet.git
 ```
 
 There are two ways to run this project:
-1. You could open the solution directly in Visual Studio and run the PaymentsGateway.API to run the API. You can run the Tests from Test-->Run All Test Menu.
 
+1. Start the simulator 
 
-2. You can build the API from the command line
+```sh
+$ run docker-compose up
+```
+
+2. Open the solution directly in Visual Studio and run the PaymentsGateway.API to run the API or You can build the API from the command line
+
 Build and run (from the project directory):
 ```sh
 $ dotnet build
 $ dotnet run --project .\PaymentsGateway.Api\PaymentsGateway.Api.csproj
 ```
 
-To run tests:
+3. You can run the Tests from Test-->Run All Test Menu from Visual studio or run below command in terminal.
+
 ```sh
 $ dotnet test
 ```

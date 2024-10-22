@@ -1,5 +1,5 @@
-﻿using PaymentsGateway.Api.Constants;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using PaymentsGateway.Api.Constants;
 
 namespace PaymentsGateway.Api.Middleware;
 

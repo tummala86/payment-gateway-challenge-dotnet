@@ -1,10 +1,10 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using System.Net.Http.Json;
+using FluentAssertions;
 using Newtonsoft.Json;
 using PaymentGateway.Api.Models.Requests;
 using PaymentGateway.Api.Models.Responses;
 using PaymentsGateway.Test.Integration.Fixtures;
-using System.Net;
-using System.Net.Http.Json;
 using Xunit;
 
 namespace PaymentsGateway.Test.Integration.GetPayment

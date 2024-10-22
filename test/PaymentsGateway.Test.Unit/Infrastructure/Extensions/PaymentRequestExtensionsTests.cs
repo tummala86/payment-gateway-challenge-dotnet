@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
-
 using PaymentsGateway.Domain.Models;
 using PaymentsGateway.Domain.Models.Enum;
-using PaymentsGateway.Infrastructure.Database.Entities;
 using PaymentsGateway.Infrastructure.Database.Extensions;
 
 using Xunit;
@@ -22,7 +20,7 @@ public class PaymentRequestExtensionsTests
             CardNumber: "1234567898765432",
             ExpiryMonth: 10,
             ExpiryYear: 2028,
-            Amount: 100, 
+            Amount: 100,
             Currency.GBP,
             Cvv: "123");
 

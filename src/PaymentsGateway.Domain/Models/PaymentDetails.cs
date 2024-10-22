@@ -7,6 +7,6 @@ public record PaymentDetails(
     PaymentStatus Status,
     string CardNumber,
     Currency Currency,
-    int ExpiryMonth, 
+    int ExpiryMonth,
     int ExpiryYear,
     int Amount);

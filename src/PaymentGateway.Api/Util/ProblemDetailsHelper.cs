@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using PaymentsGateway.Api.Constants;
-using System.Diagnostics;
-using System.Net;
 
 namespace PaymentsGateway.Api.Util;
 

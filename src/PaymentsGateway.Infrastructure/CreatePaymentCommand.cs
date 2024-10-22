@@ -50,7 +50,7 @@ public class CreatePaymentCommand : ICreatePaymentCommand
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex,"There is an error while processing payment");
+            _logger.LogError(ex, "There is an error while processing payment");
             return new CreatePaymentResponse.InternalError();
         }
     }

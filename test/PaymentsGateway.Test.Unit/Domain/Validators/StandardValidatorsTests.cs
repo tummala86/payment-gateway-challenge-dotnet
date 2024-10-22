@@ -1,9 +1,5 @@
-﻿using System;
-
-using FluentAssertions;
-
+﻿using FluentAssertions;
 using Moq;
-
 using PaymentsGateway.Domain.Validators;
 using Xunit;
 
@@ -91,7 +87,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         public void Should_Validate_ExpiryDate(string fieldName, int expiryMonth, int expiryYear,
             int currentMonth, int currentYear, int days, bool isValid)
         {
-            _timeProvider.Setup(x => x.GetUtcNow()).Returns(new DateTime(currentYear,currentMonth, days));
+            _timeProvider.Setup(x => x.GetUtcNow()).Returns(new DateTime(currentYear, currentMonth, days));
 
             StandardValidators.ValidateExpiryDate(fieldName, expiryMonth, expiryYear, _timeProvider.Object).IsSuccess.Should().Be(isValid);
         }

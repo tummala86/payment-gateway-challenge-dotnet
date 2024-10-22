@@ -26,7 +26,7 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
             // Arrange
             _createPaymentCommandMock.Setup(x => x.CreatePayment(It.IsAny<CreatePaymentRequest>()))
                 .ReturnsAsync(() => new CreatePaymentResponse.InternalError());
-            
+
             var paymentRequest = CreatePaymentRequest();
 
             // Act
@@ -42,14 +42,14 @@ namespace PaymentsGateway.Test.Unit.Domain.Handlers
         {
             // Arrange
             _createPaymentCommandMock.Setup(x => x.CreatePayment(It.IsAny<CreatePaymentRequest>()))
-                .ReturnsAsync(() => new CreatePaymentResponse.Success(new PaymentDetails(Guid.NewGuid(), 
+                .ReturnsAsync(() => new CreatePaymentResponse.Success(new PaymentDetails(Guid.NewGuid(),
                 PaymentStatus.Authorized,
                 "1234567891234567",
                 Currency.GBP,
                 10,
                 2028,
                 200)));
-            
+
             var paymentRequest = CreatePaymentRequest();
 
             // Act

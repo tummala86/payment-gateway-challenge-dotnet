@@ -1,7 +1,9 @@
 ﻿using FluentAssertions;
+
 using PaymentsGateway.Api.Mappers;
 using PaymentsGateway.Domain.Models;
 using PaymentsGateway.Domain.Models.Enum;
+
 using Xunit;
 
 namespace PaymentsGateway.Test.Unit.API.Mappers;
@@ -17,7 +19,7 @@ public class DomainToApiMapperTests
             PaymentStatus.Authorized,
             CardNumber: "1234567898765432",
             Currency.GBP,
-            ExpiryMonth: 10, 
+            ExpiryMonth: 10,
             ExpiryYear: 2028,
             Amount: 100);
 

@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using PaymentsGateway.Test.Integration.Fixtures;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
+using FluentAssertions;
+using PaymentsGateway.Test.Integration.Fixtures;
 using Xunit;
 
 namespace PaymentsGateway.Test.Integration.CreatePayment

@@ -20,7 +20,7 @@ public class PostPaymentRequestValidatorTests
     public void Validate_ValidPaymentRequest_RetrunsSuccess()
     {
         // Arrange
-        var request = new PostPaymentRequest("1234567898765432", 10, 2028, "GBP",10,"123");
+        var request = new PostPaymentRequest("1234567898765432", 10, 2028, "GBP", 10, "123");
 
         var sut = new PostPaymentRequestValidator(_timeProvider.Object);
 

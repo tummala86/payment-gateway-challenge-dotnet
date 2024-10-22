@@ -1,10 +1,10 @@
 ﻿
-using PaymentsGateway.Domain.Models.Enum;
-using PaymentsGateway.Domain.Models;
-using Xunit;
+using FluentAssertions;
 using PaymentGateway.Api.Models.Requests;
 using PaymentsGateway.Api.Extensions;
-using FluentAssertions;
+using PaymentsGateway.Domain.Models;
+using PaymentsGateway.Domain.Models.Enum;
+using Xunit;
 
 namespace PaymentsGateway.Test.Unit.API.Extensions;
 
