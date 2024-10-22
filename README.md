@@ -15,7 +15,6 @@ GET /payments/{paymentId}
 **Request:**
 ```console
 curl --location --request POST 'http://localhost:5067/payments' \
---header 'IdempotencyKey: test3748335554ee4' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "cardnumber": "2222405343248877",
