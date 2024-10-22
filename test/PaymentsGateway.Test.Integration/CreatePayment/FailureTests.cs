@@ -10,7 +10,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
     public class FailureTests : TestServerFixture
     {
         [Fact]
-        public async Task ShouldReturn_InvalidParameters_WehnRequestIsInvalid()
+        public async Task ShouldReturn_InvalidParameters_WhenRequestIsInvalid()
         {
             // Arrange
             var idempotencyKey = Guid.NewGuid().ToString();
@@ -29,7 +29,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
         }
 
         [Fact]
-        public async Task ShouldReturn_InvalidIdempotencyKey_WhenIdempotencyKeyHeaderNotPresent()
+        public async Task ShouldReturn_BadRequestError_WhenIdempotencyKeyHeaderNotPresent()
         {
             // Arrange
             var client = Server.CreateClient();
@@ -46,7 +46,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
         }
 
         [Fact]
-        public async Task ShouldReturn_IdempotencyKeyReuseError()
+        public async Task ShouldReturn_ReqestUnprocessedError_WhenIdempotencyKeyReused()
         {
             // Arrange
             var idempotencyKey = Guid.NewGuid().ToString();
@@ -60,7 +60,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
             var response2 = await client.PostAsJsonAsync("/payments", paymentRequest2);
 
             // Assert
-            response1.StatusCode.Should().Be(HttpStatusCode.Accepted);
+            response1.StatusCode.Should().Be(HttpStatusCode.Created);
             response2.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
             var body = await response2.Content.ReadAsStringAsync();
             body.Should().NotBeNull();

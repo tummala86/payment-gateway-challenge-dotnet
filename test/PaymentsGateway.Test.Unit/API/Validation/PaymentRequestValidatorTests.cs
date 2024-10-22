@@ -1,4 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+
+using FluentAssertions;
+
+using Moq;
+
 using PaymentGateway.Api.Models.Requests;
 using PaymentsGateway.Api.Validation;
 using Xunit;
@@ -7,13 +12,21 @@ namespace PaymentsGateway.Test.Unit.API.Validation
 {
     public class PaymentRequestValidatorTests
     {
+        private readonly Mock<TimeProvider> _timeProvider;
+
+        public PaymentRequestValidatorTests()
+        {
+            _timeProvider = new Mock<TimeProvider>();
+            _timeProvider.Setup(x => x.GetUtcNow()).Returns(DateTime.UtcNow);
+        }
+
         [Fact]
         public void Validate_ValidPaymentRequest_RetrunsSuccess()
         {
             // Arrange
             var request = new PostPaymentRequest("1234567898765432", 10, 2028, "GBP",10,"123");
 
-            var sut = new PaymentRequestValidator();
+            var sut = new PaymentRequestValidator(_timeProvider.Object);
 
             // Act
             var result = sut.Validate(request);
@@ -28,7 +41,7 @@ namespace PaymentsGateway.Test.Unit.API.Validation
             // Arrange
             var request = new PostPaymentRequest(string.Empty, 10, 2028, "GBP", 10, "123");
 
-            var sut = new PaymentRequestValidator();
+            var sut = new PaymentRequestValidator(_timeProvider.Object);
 
             // Act
             var result = sut.Validate(request);

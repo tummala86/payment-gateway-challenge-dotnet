@@ -28,6 +28,9 @@
 
         public static ParameterError InvalidYearValue(string fieldName)
             => new(fieldName, "Value must be greater than or equal to current year");
+
+        public static ParameterError InvalidExpiryDateValue(string fieldName)
+            => new(fieldName, "value must be a future date.");
     }
 
     public static class ParameterErrorExtensions

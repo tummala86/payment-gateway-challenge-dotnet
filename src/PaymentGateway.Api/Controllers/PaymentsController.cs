@@ -46,7 +46,7 @@ public class PaymentsController : Controller
         var createPaymentsResult = await _createPaymentRequestHandler.HandleAsync(paymentRequest.ToDomain());
 
         return createPaymentsResult.Match(
-            success => StatusCode((int)HttpStatusCode.Accepted, success.PaymentDetails.ToApiResponse()),
+            success => StatusCode((int)HttpStatusCode.Created, success.PaymentDetails.ToApiResponse()),
             internalError => StatusCode(
                 (int)HttpStatusCode.InternalServerError,
                 ProblemDetailsHelper.InternalServerError(ApiRoutes.Base))

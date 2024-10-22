@@ -1,4 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+
+using FluentAssertions;
+
+using Moq;
+
 using PaymentsGateway.Domain.Validators;
 using Xunit;
 
@@ -6,6 +11,14 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
 {
     public class StandardValidatorsTests
     {
+        private readonly Mock<TimeProvider> _timeProvider;
+
+        public StandardValidatorsTests()
+        {
+            _timeProvider = new Mock<TimeProvider>();
+        }
+
+
         [Theory]
         [InlineData("field1", "A-value", true)]
         [InlineData("field1", null, false)]
@@ -50,14 +63,11 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         }
 
         [Theory]
-        [InlineData("ExpiryMonth", 10,2027, true)]
-        [InlineData("ExpiryMonth", 10, 2024, true)]
-        [InlineData("ExpiryMonth", 5, 2022, false)]
-        [InlineData("ExpiryMonth", 8, 2023, false)]
-        [InlineData("ExpiryMonth", 0, 0, false)]
-        public void Should_Validate_ExpiryMonth_Field(string fieldName, int month, int year, bool isValid)
+        [InlineData("ExpiryMonth", 10, true)]
+        [InlineData("ExpiryMonth", 0, false)]
+        public void Should_Validate_ExpiryMonth_Field(string fieldName, int month, bool isValid)
         {
-            StandardValidators.ValidateMonth(fieldName, month, year).IsSuccess.Should().Be(isValid);
+            StandardValidators.ValidateMonth(fieldName, month).IsSuccess.Should().Be(isValid);
         }
 
         [Theory]
@@ -68,7 +78,21 @@ namespace PaymentsGateway.Test.Unit.Domain.Validators
         [InlineData("ExpiryYear", 0, false)]
         public void Should_Validate_ExpiryYear_Field(string fieldName, int year, bool isValid)
         {
-            StandardValidators.ValidateYear(fieldName, year).IsSuccess.Should().Be(isValid);
+            _timeProvider.Setup(x => x.GetUtcNow()).Returns(DateTime.UtcNow);
+
+            StandardValidators.ValidateYear(fieldName, year, _timeProvider.Object).IsSuccess.Should().Be(isValid);
+        }
+
+        [Theory]
+        [InlineData("ExpiryYear", 1, 2028, 8, 2024, 31, true)]
+        [InlineData("ExpiryYear", 10, 2024, 10, 2024, 31, true)]
+        [InlineData("ExpiryYear", 5, 2022, 05, 2024, 30, false)]
+        public void Should_Validate_ExpiryDate(string fieldName, int expiryMonth, int expiryYear,
+            int currentMonth, int currentYear, int days, bool isValid)
+        {
+            _timeProvider.Setup(x => x.GetUtcNow()).Returns(new DateTime(currentYear,currentMonth, days));
+
+            StandardValidators.ValidateExpiryDate(fieldName, expiryMonth, expiryYear, _timeProvider.Object).IsSuccess.Should().Be(isValid);
         }
 
         [Theory]

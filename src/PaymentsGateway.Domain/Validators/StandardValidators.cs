@@ -45,16 +45,32 @@ namespace PaymentsGateway.Domain.Validators
                            : new ValidationResult.Success();
         }
 
-        public static ValidationResult ValidateMonth(string fieldName, int? monthValue, int? yearValue)
-           => (monthValue >= 1 && monthValue <= 12) && 
-                (yearValue > DateTime.UtcNow.Year || (monthValue >= DateTime.UtcNow.Month && yearValue == DateTime.UtcNow.Year))
+        public static ValidationResult ValidateMonth(string fieldName, int? value)
+        {
+            return value is not null && (value >= 1 && value <= 12)
            ? new ValidationResult.Success()
            : StandardParameterErrors.InvalidMonthValue(fieldName);
+        }
 
-        public static ValidationResult ValidateYear(string fieldName, int? value)
-          => value is not null && (value >= DateTime.UtcNow.Year)
-          ? new ValidationResult.Success()
-          : StandardParameterErrors.InvalidYearValue(fieldName);
+        public static ValidationResult ValidateYear(string fieldName, int? value, TimeProvider timeProvider)
+        {
+            var currentDate = timeProvider.GetUtcNow();
+
+            return value is not null && (value >= currentDate.Year)
+                ? new ValidationResult.Success()
+                : StandardParameterErrors.InvalidYearValue(fieldName);
+        }
+
+        public static ValidationResult ValidateExpiryDate(string fieldName, int monthValue, int yearValue, TimeProvider timeProvider)
+        {
+            var currentDate = timeProvider.GetUtcNow().Date;
+            var daysInMonth = DateTime.DaysInMonth(yearValue, monthValue);
+            var expiryDate = new DateTime(yearValue, monthValue, daysInMonth).Date;
+
+            return (expiryDate >= currentDate)
+                ? new ValidationResult.Success()
+                : StandardParameterErrors.InvalidMonthValue(fieldName);
+        }
 
     }
 }

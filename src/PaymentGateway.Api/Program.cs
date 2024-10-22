@@ -30,6 +30,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(new JsonSnakeCaseNamingPolicy()));
     });
+builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddProblemDetails(ProblemDetailsExtensions.ConfigureProblemDetails);
 builder.Services.AddHealthChecks();
 builder.Services.AddIdempotentAPI();

@@ -30,7 +30,7 @@ namespace PaymentsGateway.Test.Integration.CreatePayment
             var response = await client.PostAsJsonAsync("/payments", paymentRequest);
 
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
             var body = await response.Content.ReadAsStringAsync();
             body.Should().NotBeNull();
         }
