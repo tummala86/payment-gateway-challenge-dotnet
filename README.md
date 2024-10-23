@@ -81,7 +81,7 @@ There are two ways to run this project:
 $ run docker-compose up
 ```
 
-2. Open the solution directly in Visual Studio and run the PaymentGateway.API to run the API or You can build the API from the command line
+2. Open the solution directly in Visual Studio and run the PaymentGateway.API to start the API, or build and run the API from the command line.
 
 Build and run (from the project directory):
 ```sh
@@ -89,7 +89,7 @@ $ dotnet build
 $ dotnet run --project .\PaymentGateway.Api\PaymentGateway.Api.csproj
 ```
 
-3. You can run the Tests from Test-->Run All Test Menu from Visual studio or run below command in terminal.
+3. You can run the tests from the `Test` > `Run All Tests` menu in Visual Studio, or by executing the following command in the terminal.
 
 ```sh
 $ dotnet test
@@ -102,14 +102,14 @@ Assumptions
 ## Areas for Improvements
 
 - Introduce JWT Authentication and request signing to secure the application.
-- I would implement custom Idempotency in real time. To avoid creating multiple payments for the same request. This could be achieved by sending an idempotency key as a request header. 
-- As part of service observability, I would improve exception handling and logging to debug errors quickly. I would use Elastic search to store logs for quicker search and visualisations.
-- As part of service observability, I would create Graphana dashbords to monitor service health metrics.
+- I will implement custom idempotency in real-time to prevent creating multiple payments for the same request. This can be achieved by sending an idempotency key as a request header. 
+- To enhance service observability, I will improve exception handling and logging to facilitate quick error debugging. I will use Elasticsearch to store logs for faster search and visualization.
+- I will create Graphana dashbords to monitor service health metrics.
 - Implementing resilience mechanisms by introducing [Polly](https://github.com/App-vNext/Polly#polly).
-- I would use Honeycomb tool to trace service requests.
-- I would implement rate limiting on public endpoints to limit the number of requests.
-- I would implement end to end tests on public endpoints to identify intermittent issues in all environments.
-- I would run load tests on service to capture application peformance metrics.
-- I would add more unit and integration tests to cover all parts of source code.
+- I will use Honeycomb tool to trace service requests.
+- I will implement rate limiting on public endpoints to limit the number of requests.
+- I will implement end to end tests on public endpoints to identify intermittent issues in all environments.
+- I will run load tests on service to capture application peformance metrics.
+- I will add more unit and integration tests to cover all parts of source code.
 - Ensure that persisted PCI and PII information is securely encrypted.
 - Ensure that any PCI and PII information logged is masked.
