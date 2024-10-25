@@ -14,13 +14,12 @@ public class PaymentRepository : IPaymentRepository
         return context.Payments.FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<Payment> InsertAsync(CreatePaymentRequest createPaymentRequest)
+    public async Task<Payment> InsertAsync(Payment payment)
     {
         using var context = new PaymentGatewayDbContext();
-        var paymentRequest = createPaymentRequest.ToPaymentEntity(Guid.NewGuid());
-        await context.Payments.AddAsync(paymentRequest);
+        await context.Payments.AddAsync(payment);
         await context.SaveChangesAsync();
-        return paymentRequest;
+        return payment;
     }
 
     public async Task<Payment> UpdateAsync(Payment payment, string authorizationCode)

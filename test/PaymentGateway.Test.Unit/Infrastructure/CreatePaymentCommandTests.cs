@@ -28,7 +28,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
         public async Task CreatePayment_ShouldRetrunInternalError_WhenInsertAsyncFailed()
         {
             // Arrange
-            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()));
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Payment>()));
 
             var paymentRequest = CreatePaymentRequest();
 
@@ -37,7 +37,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
 
             // Assert
             result.IsInternalError.Should().BeTrue();
-            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<Payment>()), Times.Once());
             _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Never());
         }
 
@@ -45,7 +45,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
         public async Task CreatePayment_ShouldRetrunInternalError_WhenProcessPaymentFailed()
         {
             // Arrange
-            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Payment>()))
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
@@ -58,7 +58,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
 
             // Assert
             result.IsInternalError.Should().BeTrue();
-            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<Payment>()), Times.Once());
             _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
         }
 
@@ -67,7 +67,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
         {
             // Arrange
             var paymentStatus = PaymentStatus.Authorized;
-            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Payment>()))
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
@@ -86,7 +86,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
             // Assert
             result.IsSuccess.Should().BeTrue();
             result.AsSuccess.PaymentDetails.Status.Should().Be(paymentStatus);
-            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<Payment>()), Times.Once());
             _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
         }
 
@@ -95,7 +95,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
         {
             // Arrange
             var paymentStatus = PaymentStatus.Declined;
-            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<CreatePaymentRequest>()))
+            _paymentRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Payment>()))
                 .ReturnsAsync(() => new Payment());
 
             _acquiringBankClient.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
@@ -114,7 +114,7 @@ namespace PaymentGateway.Test.Unit.Infrastructure
             // Assert
             result.IsSuccess.Should().BeTrue();
             result.AsSuccess.PaymentDetails.Status.Should().Be(paymentStatus);
-            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<CreatePaymentRequest>()), Times.Once());
+            _paymentRepositoryMock.Verify(d => d.InsertAsync(It.IsAny<Payment>()), Times.Once());
             _acquiringBankClient.Verify(d => d.ProcessPayment(It.IsAny<PaymentRequest>()), Times.Once());
         }
 

@@ -28,7 +28,8 @@ public class CreatePaymentCommand : ICreatePaymentCommand
     {
         try
         {
-            var result = await _paymentRepository.InsertAsync(request);
+            var paymentRequest = request.ToPaymentEntity(Guid.NewGuid());
+            var result = await _paymentRepository.InsertAsync(paymentRequest);
 
             if (result != null)
             {
